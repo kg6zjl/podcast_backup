@@ -1,8 +1,11 @@
 import xmltodict, requests, re, os, urllib, os.path
 from StringIO import StringIO
 from urlparse import urlparse
+from sys import argv
 
-rss_feed = 'http://www.opendooreastbay.com/podcast?format=rss'
+script, rss_feed = argv
+
+#rss_feed = 'http://www.opendooreastbay.com/podcast?format=rss'
 storage_dir = 'podcasts'
 
 ###############
@@ -38,7 +41,10 @@ for entry in xml['rss']['channel']['item']:
 	base = urlparse(podcast_url)[1]
 	clean_path = urlparse(podcast_url)[2]
 	path, fname = os.path.split(clean_path)
-	podcast_url = 'http://'+str(base)+str(clean_path)
+	if "http" not in base:
+		podcast_url = 'http://'+str(base)+str(clean_path)
+	else:
+		podcast_url = str(base)+str(clean_path)
 	if not os.path.isfile(fname):
 		print 'Downloading: '+clean_path
 		download(podcast_url, fname)
