@@ -4,8 +4,6 @@ from urlparse import urlparse
 from sys import argv
 
 script, rss_feed = argv
-
-#rss_feed = 'http://www.opendooreastbay.com/podcast?format=rss'
 storage_dir = 'podcasts'
 
 ###############
